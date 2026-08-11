@@ -1,0 +1,112 @@
+SQL Basics , Joins and Subquery:
+Leetcode questions for practicals: (Logics need to remember for solving questions)
+1) In where condition when you want any one condition should be satify in one column then you have to put 'OR' eg, referee_id IS NULL OR referee_id != 2
+2) In SQL question when you want to use join and confused which join then use Left join (In o/p left column has all records and right has maching records if no match then put 'NULL' and operation perform on right side) Cross join (when there is no matching columns from both table) 
+3) when you want to perform operation within values in one column then use CASE. eg,AVG(CASE WHEN activity_type = 'end' THEN timestamp END) - AVG(CASE WHEN activity_type = 'start' THEN timestamp END)
+4) when you use aggregate function all other columns in SELECT statement is use  in GROUP BY clause
+5) Finding Odd values col_name %2 != 0 and for even col_name %2 == 0
+6) When column is not merge from both table and require filters then use subquery,
+7) When columns from both the table also merge in that case use both joins and subquery
+8) When query is simple such finding running totals then use window function and when filter is required within that query, then use CTE.
+
+Subquery vs Joins:
+1)Subquery:
+Primary Purpose
+Filters data or passes a calculated result to the outer query.
+Output Capability
+Only returns columns from the outer/main query.
+Performance
+Can be slower, especially if it is a correlated subquery executed per row.
+Syntax Location
+Placed inside WHERE, HAVING, FROM, or SELECT clauses.
+Readability
+Highly readable; breaks complex logic into structured, logical parts.
+
+1)Joins:
+Primary Purpose
+Combines records horizontally from multiple tables.
+Output Capability
+Can return and display columns from all joined tables.
+Performance
+Generally faster; highly optimized for index usage.
+Syntax Location
+Declared primarily within the FROM or JOIN clauses.
+Readability
+Can become complex and hard to read with many tables.
+
+Exists vs In:
+1) Exists
+Primary Mechanism:
+Evaluates row existence.
+Evaluation Strategy:
+Short-circuits immediately on the first matching row.
+Best Performance:
+Large datasets or correlated subqueries.
+Direct Value Lists:
+No. Must use a subquery.
+NULL Values Safety:
+Safe. Ignores NULL and evaluates accurately.
+
+2)In
+Primary Mechanism:
+Evaluates value matching.
+Evaluation Strategy:
+Scans or builds the entire dataset/list before comparing.
+Best Performance:
+Small datasets or inline literal values.
+Direct Value Lists:
+Yes. E.g., IN (1, 2, 3).
+NULL Values Safety:
+Dangerous. Fails or returns an empty set with NOT IN.
+
+Index:
+An SQL Index is a pointer-based data structure used to speed up data retrieval from a database table. But it slow down insert, update and delete operations.
+Syntax
+CREATE INDEX idx_column_name 
+ON table_name (column_name);
+DROP INDEX idx_column_name ON table_name; -- Syntax varies slightly by SQL dialect
+
+Constraints:
+SQL constraints are rules applied to columns or tables to limit the type of data that can be inserted, updated, or deleted. They ensure data integrity (Security), accuracy(Clean and correct), and reliability (Trustworthy data or It gives same result everytime) by rejecting any database transaction 
+Types:
+PRIMARY KEY: Uniquely identifies each row. It implicitly combines NOT NULL and UNIQUE. A table can have only one primary key.
+FOREIGN KEY: Links two tables together. It enforces referential integrity by ensuring a column's value matches a primary key in another table.
+NOT NULL: Ensures that a column cannot store NULL (empty) values.
+UNIQUE: Guarantees that all values in a column or a set of columns are distinct. It allows NULL values depending on the SQL engine.
+CHECK: Enforces a specific logical condition on the values. For example, ensuring Age >= 18.
+DEFAULT: Assigns a predefined fallback value to a column if no explicit value is specified during an insert
+
+
+Normalization (1NF–3NF):
+Database normalization (1NF–3NF) is a step-by-step process used to organize database tables. Reduce redudancy of data
+1)First Normal Form (1NF)
+Single values only: 
+Every cell in the table must hold a single piece of data, not a list or group of items.
+No repeating groups: Break repeating fields into separate rows.
+Unique rows: Every row must be unique, usually backed by a primary key.
+2)Second Normal Form (2NF)
+Must be in 1NF first: The table already meets all rules of 1NF.
+No partial dependency: If a table uses a composite key (two or more columns as a primary key), every other column must depend on the entire key, not just part of it.
+Split partial matches: Move columns that only match part of the key into a new table.
+3)Third Normal Form (3NF)
+Must be in 2NF first: The table already meets all rules of 2NF.
+No transitive dependency: Non-key columns cannot depend on other non-key columns. Every column must depend directly on the primary key.
+Isolate indirect data: Move any non-key data that depends on another non-key field into its own separate table.
+eg;
+https://share.google/aimode/8QIwdt1EvWjpgiPId
+
+Window Function:
+Window Function lets you peek at other rows to calculate something, but it keeps your original rows fully intact.
+The Problem it Solves: Traditional aggregate functions like SUM() or AVG() require a GROUP BY clause, which collapses your table down into single rows. If you want to see the details of every employee and see their department's average salary right next to them, GROUP BY destroys those details.
+The Analogy: Imagine standing in a single-file line. A window function lets you look at the people around you (your "window") to see who is tallest or calculate a running total, without anyone leaving their spot in line.Keywords: It always uses the OVER() clause
+
+CTE (Common Table Expression):
+CTE is like creating a temporary spreadsheet inside your query. You give it a name, fill it with data using a SELECT statement, and then read from it right after.
+The Problem it Solves: When SQL queries get massive, subqueries (queries inside queries) become messy, unreadable, and hard to debug.The Analogy: Instead of writing a complex mathematical formula in one giant string, you break it down: Let X = 5 + 2. Now you can use X anywhere you want.
+Keywords: It always starts with the WITH keyword
+
+Leetcode Practice Questions link:
+https://leetcode.com/studyplan/top-sql-50/
+https://leetcode.com/problems/customers-who-never-order/
+https://www.w3resource.com/sql-exercises/subqueries/index.php#google_vignette
+https://machinelearningplus.com/sql/sql-window-functions-exercises/
