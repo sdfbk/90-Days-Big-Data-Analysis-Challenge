@@ -1,0 +1,151 @@
+Data Modeling & Warehousing Basics
+
+A) OLAP vs OLTP:
+OLAP (Online Analytical Processing):
+1) It is Database Architecture which works on historical data for reporting and analysis purpose to make business decision correctly.
+2) It works on offline storage data, that requires rarely backup plan (SELECT, AGGREGATE Function)
+3) It is useful for sales analysis, forecasting, budgeting data
+4) Business Analyst, Data Analyst use this for data analysis purpose
+5) Highly dependent on IT professionals
+Eg., Product recommendation based on previous buying history of users
+
+OLTP(Online Transaction Processing):
+1) It works on small daily transaction but processed huge amount of data 100-1000 data per second
+2) It works on online or internet based data so it requires backup plan (INSERT,UPDATE,DELETE)
+3) It handles multiple users transaction simultaneouly, which is useful for ATM Transaction, Online Shopping etc
+4) End users like Clerk, DBA used this architecture
+5) Costly to maintain, It loose data if hardware fails
+eg., Maintain the records of customers enter and going outside to the mall
+
+B) Fact vs Dimension Table:
+Fact Table:
+1) Main center of star schema design
+2) It contain numerical data or Actionable data
+3) It is connected to multiple dimention tables
+eg., Sales ID, Order ID, Product ID
+
+Dimension Table:
+1) Multiple dimension table in star schema
+2) It contain numerical and categorical data or Description of actionable data
+3) Each dimension table connected to fact table 
+eg., Order name, Order date, Product Name, Product delivered date, Produt status etc
+
+C) Star & Snowflake Schema:
+Star Schema:
+1) Datawarehouse technique that contain one Fact table and Multiple De-Normalized Dimension tables
+2) Joins are very simple to use
+3) Fast performance and default schema type
+4) Useful for Business Analyst and Data Analyst on Power BI, Tableau etc
+
+Snowflake Schema:
+1) Datawarehouse technique that contain one Fact table and Multiple Normalized Dimension tables
+2) Complex joins are used because data is normalized and multiple sub dimensions are connected
+3) Use for critical and complex data where performance slows down
+4) useful for large complex data processing
+
+D) Slowly Changing Dimensions:
+It is a data warehouse technique that is used to handle and manage data which are continuously updated or making changes in dataset such as product price, employees department, customer satifaction status.
+Types:
+1) SCD 0:
+It will never update values. Values inside dataset is fixed.
+
+2) SCD 1:
+when data is changed it will make changes within current row of that data example. It will replace it with new values. Eg,
+Product ID   Product Name   Product Price   Update date
+   1           Iphone        10,000         2026-01-01
+   
+Product ID   Product Name   Product Price   Update date
+   1           Iphone        8,000          2026-03-01
+   
+Explaination:
+In 1st jan 2026 Iphone price was 10,000 which was drop by 8000 in 1st mar 2026 here after updation of values it will make changes within same row and put only current values.
+
+3) SCD 2:
+It will kept history of all updated data by adding column Eg.,
+Product ID   Product Name   Product Price   Update date
+   1           Iphone        10,000         2026-01-01
+   
+Product Key   Product ID   Product Name   Product Price   Effective date   Expire Date
+     1             1           Iphone        10,000         2026-01-01       2026-03-01
+     2             1           Iphone        8,000          2026-03-01       2026-04-01
+     3             1           Iphone        7,000          2026-04-01       9999-12-31
+   
+Explaination:
+In 1st Jan 2026, Iphone price was 10,000 which get drop by 8000 in 1st Mar 2026 and again it was drop by 7000 in 1st Apr 2026. So here it will kept all logs or history of data from start to end by adding new column 'Expire Date'. Also add (surrogate key used for primary key relationship its just an integer no for unique identifier {Dimension table)) for Auto increment.
+
+4) SCD 3:
+It will kept only 2 latest values by adding one extra column
+Product ID   Product Name   Product Price   Previous Price   Update date
+   1           Iphone          7,000            8000         2026-01-01
+   
+Explaination:   
+It will keep updates of previous price and latest price only by adding one extra column 'previous price'.
+
+5) SCD 4:
+It will keep current data in main table and all logs or history of that data will stored in separate history table.
+
+6) SCD 5:
+It is a combination of SCD 4 and SCD 1 with mini dimenion that will overwrite latest value in history table
+
+7) SCD 6:
+It is a combination of type 1,2 and 3
+ 
+E) Data Warehouse vs Data Lake vs Data Lakewhouse
+
+Data Warehouse:
+1) It is also called Enterprise Data Warehouse that manage by RDBMS(Relational Database Management System)
+2) It should collect structured data like CSV, Sales, CRM data and perform ETL process extract, transform and then load organized data for analytics and reporting.
+3) It is costly to use because it requires organized data.
+4) It performance is high because it contain structured and well organized data.
+5) It is used for SQL analytics
+6) Fixed Schema
+
+Data Lake:
+1) It will stored any data types such as structured, unstructed and semi-structured useful for AI/ML usecases.
+2) It will perform ELT process means first extract data ,load and then transform 
+3) It cost is low because data dump when it is unorganised
+4) It performnace is low
+5) It is useful for raw data
+6) Flexible Schema
+
+Data Lakehouse:
+1) It will stored any data types such as structured, unstructed and semi-structured useful for AI/ML usecases and also for Analytics/reporting purpose
+2) It use both ETL and ELT to process data
+3) It cost is low
+4) It performance is high/low
+5) It is useful for hybrid analytics
+6) Flexible Schema
+
+** Data Warehouse follow ACID properties (Atomicity,Consistency,Isolation and Durability)
+1) Atomicity: Data should be correct or accurate without broken and empty data.
+2) Consistency: Constantly follows all data safety rules
+3) Isolation: Multiple users independently work at the same time with messed up data in each other.
+4) Durability: Data permanently saved if the power goes then also data will never crashed.
+
+F) Dimensional Modelling:
+Is is a design technique for database intended to help end users in data warehouse
+4 Steps of dimensional modelling exaplianed it with example (Created by Ralph kimball):
+Online shoe store as our real-world example.
+Step 1: Select the Business ProcessWhat it means: 
+Pick the specific business activity or event you want to track and measure. Do not pick a department (like HR or IT); pick an activity that makes or spends money.Shoe Store Example: We choose Retail Sales (tracking customer purchases of shoes online).
+Step 2: Declare the Grain{Fact Table}: 
+Decide the exact level of detail each row in your table will represent. Lower detail (more granular) gives you more power.Shoe Store Example: We declare the grain as one row per individual product item inside a customer order (a single order line item). If a customer buys 2 pairs of sneakers and 1 pair of socks in one checkout, that creates 3 rows in our data.
+Step 3: Choose the Dimensions: 
+Choose the context around the event—the who, what, where, when, and why. These are the words you use to filter and group your reports (e.g., "Show me sales by city by shoe brand").Shoe Store Example: We choose these dimensions:Date Dimension: Date of purchase, day of week, month, year.Customer Dimension: Customer name, email, city, age group.Product Dimension: Shoe name, brand, color, size, category.Store/Channel Dimension: Website, mobile app, or physical pop-up shop.
+Step 4: Identify the Facts: 
+Identify the numeric, measurable metrics produced by the event. These answer "how much" or "how many" and can usually be added up.Shoe Store Example: We identify these numeric facts for each row:Quantity Sold (e.g., 1 pair)Unit Price (e.g., $80)Discount Amount (e.g., $10)Final Sales Amount (e.g., $70)
+
+The Final Result: 
+Star SchemaPutting these steps together creates a Star Schema. The numeric Fact Table sits in the middle containing your keys and metrics, surrounded by descriptive Dimension Tables connected via foreign keys:
+Fact_Sales Table (Center): Date_Key, Customer_Key, Product_Key, Channel_Key, Quantity, Sales_Amount
+Dim_Product Table: Product_Key, Brand, Color, Size
+Dim_Customer Table: Customer_Key, Name, CityDim_Date Table: Date_Key, Day, Month, Year
+
+Conformed Dimension:
+Dimensions that support all different source system values such as Product, Customer, Date, Price.
+
+ 
+
+ 
+
+   
