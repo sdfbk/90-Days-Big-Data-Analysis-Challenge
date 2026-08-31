@@ -1,0 +1,139 @@
+A) ETL vs ELT:
+1)ETL:
+Extract Transform Load. It extract data from various source then transform it (data cleaning) and then load for analysis to find business solution 
+It loads in Data Warehouse which are in structured format
+Hard to maintain, Costly
+Require external ETL tools
+Eg., Banking, HealthCare
+2)ELT:
+Extract Load Transform. It extract data and then load then perform transforming process.
+It load in Data Lake
+Easily Maintainable beacause everything on cloud data warehouse
+cloud based data warehouse
+Eg., Social Media, IOT
+
+┌──────────────────────────────────────────────────────────┐
+│                  Cloud Composer (Airflow)                 │
+│                                                          │
+│  ┌────────────┐    ┌───────────┐    ┌─────────────────┐  │
+│  │  Extract   │    │  Upload   │    │  GCS Sensor     │  │
+│  │  Scripts   │───▶│  to GCS   │───▶│  (File Check)   │  │
+│  │ (Python)   │    │           │    │                 │  │
+│  └────────────┘    └───────────┘    └────────┬────────┘  │
+│                                              │           │
+│                                    ┌─────────▼────────┐  │
+│                                    │  Load to BigQuery │  │
+│                                    │  (GCSToBQOp)     │  │
+│                                    └─────────┬────────┘  │
+│                                              │           │
+│                                    ┌─────────▼────────┐  │
+│                                    │  Trigger Transform│  │
+│                                    │  DAG (movie_tr)   │  │
+│                                    └──────────────────┘  │
+└──────────────────────────────────────────────────────────┘
+
+Data Sources:          GCS Bucket:           BigQuery Dataset:         Data Visualization 
+  IMDB236 RapidAPI  →  tt-imdb-data      →   tt-labs-001.elt       →   in looker/Power BI etc    
+  (Movies, TV, Cast)   movies/ tv/ cast/     movie_data                for end user 
+                                             tv_data
+                                             cast_data
+                                             movie_tr_data
+											 
+											 
+											 
+Extract data from API
+GCP (Google Cloud Platform)
+Store data into GCS using composer Airflow
+then transform data using composer Airflow
+and put it in Big query 
+then visualization for analysis 
+As Data Engineer 2 things is important Store and Processed data efficiently, So which data stored in which format is important. 
+B) Types of File Formats:
+1)CSV (Comma Separated Value) (.csv):
+It is file format used for small dataset and human readable form data. Here all data stores separated by ','. When end user want to analyse csv data in excel then it will show in tabular format which are human readable.
+Eg: Name,Salary,Department,Job Role
+	abc,56000,IT,Software Developer
+2)Parquet (.parquet):
+This format is used for large dataset(Multiple Columns) or big data analysis. Its format is columnar. When user want to works on few columns from 150+ columns at that time using this format query result speed is increased.
+Eg: Name: [abc,pqr,sss],
+    Salary: [560000,450000,90000,100000]
+	Department: [IT,HR,Media,Sales]
+3)ORC(Optimized Row Columnar)(.orc):
+This format is same as parquet which are columnar but it works in Hadoop ecosystem. It provide better compression and processing data.
+4)AVRO:
+This is specially designed for real time streaming data such as event, IOT (data from smart home sensor), Gaming data which is row based. It is also used when data schema change frequently.
+Eg: Name,Salary,Department,Job Role
+	abc,56000,IT,Software Developer
+5)JSON(Javascript Object Notation):
+It store data in Key-Value pair. Whis is used for Web based application where data send from client to server.eg., APIs, Configuration files
+Eg:{
+  "username": "coder_jack",
+  "account_id": 4059,
+  "is_active": true,
+  "skills": ["Python", "JSON", "SQL"],
+  "metadata": {
+    "theme": "dark_mode",
+    "notifications": false
+  }
+}
+ 
+C) Coverting CSV to parquet using pandas:
+df = pd.read_csv('n.csv')
+df.to_parquet('n1.parquet')
+r = pd.read_parquet('n1.parquet') 
+print(r)
+
+D) What is Orchestration with each concepts:
+Orchestration automates complex data workflow or complex task.
+Concepts:
+1) Scheduling:
+		It sets time for each task to complete means when new data loads the start pipeline.
+2) Dependency Management:
+		It strictly managae step by step processs of data pipeline means when raw data completly loads at that time it will move for data transformation.
+3) Error Handling:
+		When any error occurs during complex data pipeline the it will automatically retries to  recover if possible otherwise send alert notifications.
+4) Monitoring:
+		Track data pipeline status through logs, dashboard
+		
+E) Apache Airflow Overview:
+It is an open source platform that used for scheduling, error handling and Monitoring complex task
+Concepts:
+1) DAGS:
+	It contains all task and to handle that task by scheduling time and provide step by step process to each tasks
+2) Task:
+	It contains in DAG. Individual set of work means loading raw data(task1),data transformation(task2) etc.
+3) Operators:
+	It defines what specific task will do
+	
+Main Architecture:
+1) Web Server: Provides a user interface (UI) to inspect, trigger, and monitor the status of your DAGs and tasks.
+2) Scheduler: Monitors DAGs and handles job dispatching to the executor when dependencies are met.
+3) Executor: Handles the running and allocation of tasks, assigning them to workers.
+4) Metadata Database: Stores state data, task statuses, logs, and configurations
+
+F) 7 Data Quality types that every Data Engineer needs to know
+1) Null Value Check:
+Ensuring that important fields doesn't contain missing values
+Eg., Company sells online courses. They has information of there customers includes name, age, preffered course but one day team analyze that less no of customers are enrolling for course this is because of maximum no of missing values in perffered coursev field.
+2) Volume Check :
+Quantity of data should be in expected limit if daily data range is 200 rows suddenly if it increase to 2000 or drop to 2 which cause during analysis.
+Eg., Company provides customer service through website,mobile apps. It contains data of customer includes name, age, interactions and one day customer interaction are very low on website after analysis by company's team this is beacuse of less volume of data on website. Data collection system is not correctly working it was not capturing each interaction of customers which cause issue.
+3) Numeric Distribution:
+If data is not numerically distributed which cause skewness or biased in a data. This is cause beacause data is not in proper range.
+Eg., Company selling subscription based product and company has customer data contains name, age, subscription length One day team analyze that subscription length decreased beacuse age is not in proper range.
+4) Uniqueness check:
+Ensures that data should not contain duplicate values.
+Eg., Imagine a company that operates a loyalty program for its customers. The company collects data on its customers, including their names, email addresses, and loyalty points. One day, the company’s data team notices that the loyalty points balance for some customers is much higher than expected. They decide to analyze their customer data to see if they can identify any trends or issues. However, when they start their analysis, they realize that there are many duplicate records in the data.
+5) String pattern:
+It ensures that data should be in proper pattern. 
+Eg., Customers phone no, email, date should be in proper pattern otherwise it will affects to the accuracy of data and that type of data is invalid
+6) Refrential Integrity test:
+When  primary key and foreign key data is mismatch which cause broken relationship between two tables to avoid this its necessary to check this test.
+7) Freshness test:
+Ensures that data should not be outdated it should always updated otherwise it will be poor quality of data.
+Data Observabilty (The Key to Scaling Data Quality):
+Here Monte Carlo is the Data Observabilty system that automatically detect old data , solve it by replacing with updated one. This will useful for large data when company wants to grow data.
+
+
+
+		   
