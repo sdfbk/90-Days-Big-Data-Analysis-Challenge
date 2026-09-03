@@ -1,0 +1,43 @@
+What is Microsoft Azure?
+Microsoft Azure is Microsoft's public cloud computing platform that lets you build, run, and manage applications across a global network of Microsoft-managed data centers
+
+What are Core Azure Services?
+Azure offers over 200 cloud services organized into several main categories:
+1) Compute: Run virtual computers and apps without buying physical hardware. Key tools include Virtual Machines (VMs), App Service for web apps, and Azure Functions for serverless code.
+2) Storage: Keep your data safe and scalable in the cloud. Key tools include Blob Storage for files and objects, Disk Storage, and Azure Files.
+3) Databases: Manage structured and unstructured data reliably. Key options include Azure SQL Database and Cosmos DB (a NoSQL database).
+4) Networking: Connect your cloud resources securely. Key tools include Virtual Networks (VNets), Load Balancers, and ExpressRoute for fast connections.
+5) AI and Machine Learning: Build smart apps using pre-built tools. Key options include Azure OpenAI, AI Services, and Azure Machine Learning
+6) Security and Identity: Protect your business data and logins. Key tools include Microsoft Entra ID (for user sign-ins), Key Vault, and Microsoft Defender for Cloud.
+
+What are Cloud Service Models?
+Azure delivers its services through three main cloud models:
+1) IaaS (Infrastructure as a Service): You rent raw computing hardware, storage, and networking. You manage the operating system and apps.
+2) PaaS (Platform as a Service): Microsoft manages the underlying hardware and operating system. You focus entirely on building and running your software.
+3) SaaS (Software as a Service): Fully functional ready-to-use software applications hosted in the cloud.
+
+What are Microsoft Azure Patterns and Practices?
+is a comprehensive set of architectural frameworks, cloud design patterns, and engineering best practices hosted in the Azure Architecture Center
+
+What are the 5 Pillars of Azure Well-Architected Framework?
+All architectural decisions and patterns in Azure are evaluated against five fundamental pillars of software quality:
+1) Reliability: Ensuring systems can recover from infrastructure or service failures and remain operational.
+2)Security: Protecting applications, data, identities, and infrastructure from threats using Zero Trust principles.
+3)Cost Optimization: Managing and minimizing resource expenditures while maximizing business value. 4)Operational Excellence: Implementing standardized deployment, monitoring, governance, and continuous improvement processes.
+5)Performance Efficiency: Matching resource capacity with changing application demands smoothly
+
+Key Azure Cloud Design Patterns:
+Azure organizes its software design patterns by the technical challenges they solve. Some of the most widely used patterns include:
+Data Management & Performance
+1) Cache-Aside: Loads data on demand into a cache from a primary database to reduce latency and reduce database stress.
+2)CQRS (Command Query Responsibility Segregation): Separates read and write operations into independent interfaces to optimize scaling and performance.
+3) Event Sourcing: Uses an append-only store to record the complete history of actions taken on data, rather than just updating its current state.
+Resiliency & Fault Tolerance
+1)Circuit Breaker: Prevents a failure in a downstream service from cascading across the entire application by failing fast when an outage is detected.
+2) Bulkhead: Isolates critical resources (like memory, CPU, or connection pools) into distinct pools so that if one component fails, the others keep functioning.
+3) Retry Pattern: Automatically retries transient, temporary failures (like network glitches or brief service throttling) before giving up
+Microservices & API Gateway
+1) Gateway Routing: Maps requests across multiple distinct microservices using a single, unified endpoint.
+2)Gateway Aggregation: Bundles multiple separate client requests directed at individual microservices into one single request to reduce "chattiness".
+3)Gateway Offloading: Centralizes shared functionality (like SSL termination, certificate management, or authentication) into an API gateway.
+4)Ambassador: Offloads client-side helper tasks (like logging, routing, and security) into a language-agnostic helper service
