@@ -1,0 +1,35 @@
+PySpark:
+https://www.sparkplayground.com/tutorials/pyspark/window-functions
+
+Spark SQL:
+Spark SQL is a powerful module within Apache Spark designed for processing structured and semi-structured big data. It allows you to run traditional ANSI SQL queries on distributed datasets and seamlessly mix SQL syntax with Spark's DataFrame API. [1, 2, 3]  
+Here is a practical, step-by-step programming guide using PySpark (Spark's Python API) to get you started with Spark SQL coding. 
+1. Initialize the Spark Session 
+The entry point to programming with Spark SQL is the  object.  
+2. Prepare Data and Create a Temporary View 
+To execute standard SQL text queries, you first read data into a DataFrame and register it as a temporary SQL view.   
+3. Executing SQL Queries 
+Once the view is registered, you can issue SQL statements using the  function. This returns a new DataFrame containing the query results. 
+Basic Queries (Select & Filter)Aggregations and GroupingAdvanced Operations (Window Functions) Spark SQL natively supports advanced analytical statements like OLAP window functions.  
+4. Direct Operations on External Files (Schema-on-Read) 
+You can directly run SQL queries on external files (like Parquet, JSON, or CSV) without explicitly loading them into a DataFrame first.  
+DataFrame API vs. Pure SQL Syntax 
+You can achieve identical query execution plans using either pure SQL statements or Spark's programmatic DataFrame methods: 
+
+| Operation | Using Pure Spark SQL Syntax () | Using DataFrame API  |
+| --- | --- | --- |
+| Filtering | — | —  |
+| Grouping | — | —  |
+| Joining | — | —  |
+
+PySpark is the Python API for Apache Spark, while Spark SQL is a Spark module for structured data processing using SQL queries or the DataFrame
+
+Key Difference:
+Language Interface: PySpark uses Python code and method chaining (e.g., df.filter()), whereas Spark SQL uses standard ANSI SQL queries (e.g., spark.sql("SELECT * FROM table")).
+PySpark fits best for complex programmatic workflows, machine learning pipelines, and custom Python functions (UDFs). Spark SQL fits best for data warehousing, reporting, and users with a pure SQL background. 
+PySpark requires inter-process communication between Python worker processes and the Java Virtual Machine (JVM) via Py4J for certain operations, whereas native Spark SQL runs entirely within the JVM without cross-language bridge overhead. 
+PySpark offers deep control over custom logic and data flows, while Spark SQL offers a cleaner, more declarative syntax for relational operations.
+
+RDD: (Resillence Distributed Dataset)
+It works on unstructured dataset means it treats every data as raw object (string,integer etc).
+
