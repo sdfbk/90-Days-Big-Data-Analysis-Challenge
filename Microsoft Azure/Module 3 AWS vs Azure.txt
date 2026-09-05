@@ -1,0 +1,6 @@
+AWS vs Azure
+Both are the best Cloud Computing Platform
+1) AWS (Amazon Web Services):
+Best in IAAS (Infrastructure as a Services). More control on Virtual Machine.
+2) Microsoft Azure:
+Best in PAAS (Platform as a Services)

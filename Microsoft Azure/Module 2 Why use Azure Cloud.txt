@@ -1,0 +1,22 @@
+Why use Azure Cloud?
+Microsoft Azure is a cloud computing platform that lets you rent servers, storage, databases, and intelligence tools over the internet instead of buying physical hardware. [1, 2]  
+People choose Azure for several key reasons: 
+Hybrid Flexibility 
+
+• Seamless integration: Azure connects easily with existing on-premises Windows and Linux systems. 
+• Unified management: Tools like Azure Arc let you manage resources across your local data centers and the cloud together.  
+
+Microsoft Ecosystem Integration 
+
+• Easy identity management: Azure works smoothly with Microsoft Entra ID (formerly Active Directory). 
+• Familiar tools: It links directly with software like Microsoft 365, Visual Studio, and GitHub. 
+
+Cost and Scale 
+
+• Pay-as-you-go: You only pay for the exact computing resources or storage you use. 
+• Instant growth: You can scale virtual machines and storage up or down instantly without buying new equipment.  
+
+Security and Backup 
+
+• Enterprise safety: Azure provides advanced threat protection, encryption, and automated disaster recovery. 
+• Global reach: Microsoft operates a massive network of secure data centers worldwide. 
