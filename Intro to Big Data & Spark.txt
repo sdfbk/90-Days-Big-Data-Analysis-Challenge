@@ -1,0 +1,122 @@
+A) What is big data? Volume, velocity, variety
+Big Data:
+Data whose size is unprecedented. Which comes at high speed in various form structured,unstructured or semi-structured.
+1) Volume:
+It define size of the data. Big data size is unprecedented or difficult to count which can be more zettabyte
+2) Velocity:
+It measure how fast data is coming. Speed of the data.
+3) Variety:
+Data can be in any form image, audio, video, graphics, text, pdf etc
+Eg., Healthcare data
+Large amount of patient data, which can be in sonography (graphics), doctor notes (text) etc.
+E-Commerce data
+High speed of data is coming daily data of customers who purchase or return products
+
+B) Distributed computing, clusters, nodes, partitions.
+1) Distributed computing:
+Multiple independent computers solved large task on network by sharing and processing data.
+2) Clusters:
+It is  group of servers or nodes that are together to make single system that perform large task together by sharing data.
+3) Nodes:
+It is a single server inside cluster. That are perform specific piece of task from large task.
+4) Partition:
+Distribution of large task into small pieces within each servers which are inside the cluster. where that task is moved from one server to another if any server failed to work.
+
+C) PySpark:
+https://www.sparkplayground.com/tutorials/pyspark/window-functions
+
+D) Spark SQL:
+Spark SQL is a powerful module within Apache Spark designed for processing structured and semi-structured big data. It allows you to run traditional ANSI SQL queries on distributed datasets and seamlessly mix SQL syntax with Spark's DataFrame API. [1, 2, 3]  
+Here is a practical, step-by-step programming guide using PySpark (Spark's Python API) to get you started with Spark SQL coding. 
+1. Initialize the Spark Session 
+The entry point to programming with Spark SQL is the  object.  
+2. Prepare Data and Create a Temporary View 
+To execute standard SQL text queries, you first read data into a DataFrame and register it as a temporary SQL view.   
+3. Executing SQL Queries 
+Once the view is registered, you can issue SQL statements using the  function. This returns a new DataFrame containing the query results. 
+Basic Queries (Select & Filter)Aggregations and GroupingAdvanced Operations (Window Functions) Spark SQL natively supports advanced analytical statements like OLAP window functions.  
+4. Direct Operations on External Files (Schema-on-Read) 
+You can directly run SQL queries on external files (like Parquet, JSON, or CSV) without explicitly loading them into a DataFrame first.  
+DataFrame API vs. Pure SQL Syntax 
+You can achieve identical query execution plans using either pure SQL statements or Spark's programmatic DataFrame methods: 
+
+| Operation | Using Pure Spark SQL Syntax () | Using DataFrame API  |
+| --- | --- | --- |
+| Filtering | — | —  |
+| Grouping | — | —  |
+| Joining | — | —  |
+
+PySpark is the Python API for Apache Spark, while Spark SQL is a Spark module for structured data processing using SQL queries or the DataFrame
+
+Key Difference:
+Language Interface: PySpark uses Python code and method chaining (e.g., df.filter()), whereas Spark SQL uses standard ANSI SQL queries (e.g., spark.sql("SELECT * FROM table")).
+PySpark fits best for complex programmatic workflows, machine learning pipelines, and custom Python functions (UDFs). Spark SQL fits best for data warehousing, reporting, and users with a pure SQL background. 
+PySpark requires inter-process communication between Python worker processes and the Java Virtual Machine (JVM) via Py4J for certain operations, whereas native Spark SQL runs entirely within the JVM without cross-language bridge overhead. 
+PySpark offers deep control over custom logic and data flows, while Spark SQL offers a cleaner, more declarative syntax for relational operations.
+
+RDD: (Resillence Distributed Dataset)
+It works on unstructured dataset means it treats every data as raw object (string,integer etc).
+
+E) Partitioning and bucketing
+Partitioning and bucketing are data organization techniques used in big data frameworks (like Apache Spark, Hive, and Databricks) to optimize query performance and avoid full table scans.  
+Partitioning 
+Partitioning physically divides a large dataset into separate folders or directories on disk based on the distinct values of a specific column. 
+
+• Cardinality: Best used for low-cardinality columns (columns with a small number of unique values, like  or ). 
+• How it works: If you partition by , Spark creates separate subdirectories like  and . 
+• Query optimization: When a query includes a filter like , the engine uses partition pruning to skip scanning all other directories entirely. 
+• Pitfall: Partitioning on high-cardinality columns (like user_id or timestamp) creates thousands of tiny folders and files, which degrades performance (known as the "small file problem").  
+
+Bucketing (Clustering) 
+Bucketing organizes data within a partition (or an unpartitioned table) into a fixed, predefined number of files by applying a hash function to the values of a specific column. 
+
+• Cardinality: Best used for high-cardinality columns (columns with many unique values, like  or ). 
+• How it works: The system applies a hash function (e.g., hash(column) % num_buckets) to group rows into a set number of data files. 
+• Query optimization: Bucketing co-locates related data together, which eliminates data shuffling during expensive join and aggregation operations on the bucketed columns. Read more about organizing data layouts and co-location in Spark Partitioning and Bucketing.  
+
+Key Differences at a Glance 
+
+• Structure: Partitioning creates physical directories; bucketing creates a fixed number of hashed files within those directories or tables. 
+• Key Definition: Partition values are dynamic and driven by data; bucket count is static and must be defined explicitly by the user during creation. 
+• Primary Benefit: Partitioning speeds up filtering ( clauses) via directory skipping; bucketing speeds up joins and group-bys by removing shuffles.  
+
+Combining Both 
+For large enterprise datasets, you can combine both techniques: partition the data first by a broad, low-cardinality category (like order_date) and then bucket each partition by a granular, high-cardinality identifier (like customer_id). 
+
+For bucketing
+Formula: k = 1 + log_2(n) Example: For 100 records, k = 1 + 6.64 = 7.64 → 8 buckets.
+
+F) Repartition vs coalesce.
+In Apache Spark,  is used only to decrease the number of partitions efficiently by merging existing ones without a full shuffle, whereas  can both increase or decrease partition counts by performing a full data shuffle to ensure an even distribution.
+Key Differences 
+
+• Shuffle Operation: 
+
+	• : Avoids a full shuffle (narrow transformation) by combining local partitions. 
+	• : Always triggers a full network shuffle (wide transformation). 
+
+• Direction: 
+
+	• : Can only decrease the partition count (unless shuffle is explicitly set to true). 
+	• : Can increase or decrease the partition count freely. 
+
+• Data Distribution: 
+
+	• : May result in uneven or skewed partition sizes because data is not completely re-indexed. 
+	• : Guarantees a uniform, evenly balanced distribution of data across all partitions. 
+
+• Performance: 
+
+	• : Faster and uses fewer resources when scaling down. 
+	• : Slower due to high network I/O and disk write overhead from shuffling. 
+
+When to Use Which 
+Use  when: 
+
+• You have filtered a large dataset and want to reduce the high number of output partitions before writing data to disk (e.g., to prevent creating thousands of tiny files). 
+• You want to speed up execution time by avoiding expensive network shuffling. 
+
+Use  when: 
+
+• You need to increase the number of partitions to increase parallelism. 
+• You are dealing with severe data skew and need to evenly balance records across partitions before a join or aggregation. 
