@@ -1,5 +1,5 @@
 What is Microsoft Azure?
-Microsoft Azure is Microsoft's public cloud computing platform that lets you build, run, and manage applications across a global network of Microsoft-managed data centers
+Microsoft Azure is Microsoft's public cloud computing platform that lets you build, run, and manage applications across a global network of Microsoft-managed data centers.
 
 What are Core Azure Services?
 Azure offers over 200 cloud services organized into several main categories:
@@ -17,7 +17,7 @@ Azure delivers its services through three main cloud models:
 3) SaaS (Software as a Service): Fully functional ready-to-use software applications hosted in the cloud.
 
 What are Microsoft Azure Patterns and Practices?
-is a comprehensive set of architectural frameworks, cloud design patterns, and engineering best practices hosted in the Azure Architecture Center
+It is a comprehensive set of architectural frameworks, cloud design patterns, and engineering best practices hosted in the Azure Architecture Center.
 
 What are the 5 Pillars of Azure Well-Architected Framework?
 All architectural decisions and patterns in Azure are evaluated against five fundamental pillars of software quality:
