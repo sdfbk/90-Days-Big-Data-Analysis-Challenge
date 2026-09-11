@@ -1,0 +1,10 @@
+Azure Availability Sets provide basic high availability for a static group of virtual machines by isolating them across physical hardware
+Azure Availability SetsAn availability set is a logical grouping tool that ensures your virtual machines are not all placed on the exact same physical hardware inside an Azure datacenter. 
+Fault Domains: Split your virtual machines across up to 3 separate physical racks that have independent power sources and network switches. A hardware failure on one rack does not take down the VMs on another rack.
+
+Update Domains: Group your virtual machines into up to 20 logical buckets for planned maintenance. Azure reboots only one update domain at a time during updates, keeping your application online.
+
+Scalability of Virtual Machines It happens through two primary scaling methods:
+Vertical Scaling (Scaling Up/Down): Adding or removing processing power, memory, or storage capacity on a single existing virtual machine.
+Horizontal Scaling (Scaling Out/In): Adding or deleting entire virtual machine instances to distribute a heavy workload across multiple nodes.
+Live Migration: Moving a running virtual machine from one physical host server to another with zero downtime to balance loads or perform maintenance.
