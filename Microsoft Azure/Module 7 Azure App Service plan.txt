@@ -1,0 +1,9 @@
+When you want to create App on Microsoft Azure you need some requirements:
+1) Resource Group (Set of logical resources):
+It includes, 
+Selecting Data Center region
+No of Virtual Machines required to service the application, That much no of instances will create
+Web servers
+Amount of Load Balancing
+Eg.,Creating Web Application(Website) using VS code IDE and publish that application on azure service by giving them app name,subscrpition name,Data Center region.
+	
