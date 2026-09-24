@@ -1,0 +1,17 @@
+Azure Storage:
+Microsoft's cloud storage solution. It provides safe, fast, and huge space for data. You can reach your data from anywhere using the web
+
+Main Types of Azure Storage Services
+Blob Storage: Saves raw or unstructured data like photos, videos, and log files.
+File Storage: Acts as a network file share that normal computers can mount using standard protocols.
+Queue Storage: Holds small messages to help apps talk to each other step-by-step.
+Table Storage: Stores simple, structured NoSQL data in rows and columns.
+Disk Storage: Provides virtual hard disks for virtual machines.
+
+Real-World Example: Photo Sharing App
+Imagine you build an app where users upload profile pictures:
+Storage Account: You create a unique account named mystorageaccount
+Container: Inside that account, you make a container named user-photos
+Blob File: When user John uploads profile.jpg, it is saved inside that container
+Data Structure / URL Path: John’s picture gets this exact web address:https://windows.net
+Queue & Processing (Optional): Your app drops a note into an Azure Queue that says "New photo uploaded for John." An background worker reads this queue and creates a small thumbnail version of the image for fast mobile loading. 
