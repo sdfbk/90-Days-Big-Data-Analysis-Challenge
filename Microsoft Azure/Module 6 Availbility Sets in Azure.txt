@@ -1,8 +1,11 @@
 Azure Availability Sets provide basic high availability for a static group of virtual machines by isolating them across physical hardware
 Azure Availability SetsAn availability set is a logical grouping tool that ensures your virtual machines are not all placed on the exact same physical hardware inside an Azure datacenter. 
 Fault Domains: Split your virtual machines across up to 3 separate physical racks that have independent power sources and network switches. A hardware failure on one rack does not take down the VMs on another rack.
+Real-World Example:* If you configure your availability set with 2 or 3 fault domains, Azure automatically distributes your VMs across different physical racks. If power fails on Rack A, your applications running on Racks B and C keep running seamlessly.
 
 Update Domains: Group your virtual machines into up to 20 logical buckets for planned maintenance. Azure reboots only one update domain at a time during updates, keeping your application online.
+Real-World Example:* When Microsoft rolls out hypervisor updates, they don't update all servers simultaneously. They update Update Domain 0 first, wait for it to stabilize, and then move to Update Domain 1, ensuring zero total downtime for your multi-instance apps.
+
 
 Scalability of Virtual Machines It happens through two primary scaling methods:
 Vertical Scaling (Scaling Up/Down): Adding or removing processing power, memory, or storage capacity on a single existing virtual machine.
