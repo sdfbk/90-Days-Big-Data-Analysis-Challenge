@@ -3,10 +3,19 @@ Microsoft's cloud storage solution. It provides safe, fast, and huge space for d
 
 Main Types of Azure Storage Services
 Blob Storage: Saves raw or unstructured data like photos, videos, and log files.
+Real-World Example: A global video streaming platform (like Netflix or YouTube) storing petabytes of media files across Hot, Cool, and Archive tiers to minimize long-term storage costs.
+
 File Storage: Acts as a network file share that normal computers can mount using standard protocols.
+Real-World Example: Migrating an on-premises corporate shared drive to the cloud so distributed, remote engineering and analytics teams can seamlessly collaborate on the same documents.
+
 Queue Storage: Holds small messages to help apps talk to each other step-by-step.
+Real-World Example: Handling a sudden surge of checkout requests in an e-commerce application by queuing orders to be processed safely in the background without crashing the server.
+
 Table Storage: Stores simple, structured NoSQL data in rows and columns.
+Real-World Example: Storing user session data, application logs, or user preference profiles for a web app that requires lightning-fast read/write lookups.
+
 Disk Storage: Provides virtual hard disks for virtual machines.
+Real-World Example:* Powering the backend transactional database of a high-frequency financial tracking app running on an Azure VM.
 
 Real-World Example: Photo Sharing App
 Imagine you build an app where users upload profile pictures:
