@@ -1,4 +1,4 @@
-📈 TradeStream Analytics: End-to-End Financial News & Sentiment Pipeline
+📈 Latest News Analytics: End-to-End Financial News & Sentiment Pipeline
 
 An automated, end-to-end data engineering and sentiment analysis pipeline that ingests live market and global economic news from Finnhub.io, processes text sentiment using VADER NLP, manages incremental data persistence in an Excel Master Store on Google Drive, and serves interactive analytics via Power BI.
 
@@ -166,7 +166,7 @@ The output dataset stored in Daily_news_master.xlsx feeds directly into the inte
 
 🌐 Live Dashboard Access
 
-👉 Click Here to View the TradeStream Analytics Dashboard
+👉 Click Here to View the Latest News Analytics Dashboard
 
 Key Metrics & Dashboard Features
 
