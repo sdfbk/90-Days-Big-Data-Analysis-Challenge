@@ -162,6 +162,9 @@ else:
 
 📊 Power BI Dashboard & Visual Insights
 
+<img width="1157" height="652" alt="image" src="https://github.com/user-attachments/assets/291b4635-9436-401b-9ddb-94c71906c1e1" />
+
+
 The output dataset stored in Daily_news_master.xlsx feeds directly into the interactive Power BI dashboard.
 
 🌐 Live Dashboard Access
