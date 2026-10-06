@@ -170,7 +170,7 @@ The output dataset stored in Daily_news_master.xlsx feeds directly into the inte
 🌐 Live Dashboard Access
 
 👉 Click Here to View the Latest News Analytics Dashboard
-https://app.powerbi.com/view?r=eyJrIjoiZDc4NmI0YzktNzhmMC00MDJiLWI5YjUtZGM2ZWY3ZTZhOTVmIiwidCI6IjUzM2E1NTQxLTNmNjctNGY2MS1iMDk1LTA5NjhiNDA2MGJlOSJ9
+https://app.powerbi.com/groups/19ad9162-532a-41ab-9c96-17dc6aed3f9c/reports/0f8eca2b-2104-4a6e-a7c0-584a111b861d/9fd90e655dd82c51c9c7?experience=power-bi
 
 Key Metrics & Dashboard Features
 
